@@ -4,192 +4,148 @@ Deploy the Job Portal full-stack application to production using **MongoDB Atlas
 
 ---
 
-## Quick Reference: Environment Variables
+## 📌 Repository & Cluster Details
 
-Before starting, keep these key rules in mind:
-
-- **Local Development**: Your local `.env` files already have working defaults (`localhost`). You do not need to edit them right now.
-- **Production Git**: Never commit `.env` files to GitHub. You will paste environment variables directly into Render and Vercel dashboards.
-- **Minimal Launch Setup**: You only need **4 variables** to launch the app live:
-  - Backend: `MONGODB_URI`, `JWT_SECRET`, `FRONTEND_URL`
-  - Frontend: `VITE_API_URL`
-  *(Cloudinary and Gemini AI are optional and can be plugged in later at any time).*
+- **GitHub Repository**: [https://github.com/Jagriti-coder-786/job-portal](https://github.com/Jagriti-coder-786/job-portal)
+- **Primary Branch**: `main`
+- **MongoDB Atlas Cluster**: `Cluster0` (Database: `jobportal`) — *Already seeded and ready!*
 
 ---
 
-## Deployment Steps
+## 🚀 Quick Reference: Environment Variables
+
+### Backend Environment Variables (Paste into Render)
+
+| Key | Exact Value |
+| :--- | :--- |
+| `NODE_ENV` | `production` |
+| `PORT` | `5000` |
+| `MONGODB_URI` | `mongodb+srv://jagritikushwaha95_db_user:SevPlzUngktllCi5@cluster0.ta7bgdu.mongodb.net/jobportal?appName=Cluster0` |
+| `JWT_SECRET` | `71faafe736b12ceee9ad7f667209923f63db078385f0a8dfd2763818bb42d8a3` |
+| `JWT_REFRESH_SECRET` | `6a54c0d74f0c9722e40bdb179bc057932a63e90416c003c03030267c1c5bd0d4` |
+| `FRONTEND_URL` | `https://temporary.vercel.app` *(update with your real Vercel URL after Step 2)* |
+| `CLOUDINARY_CLOUD_NAME` | *(Optional - add when enabling file uploads)* |
+| `CLOUDINARY_API_KEY` | *(Optional)* |
+| `CLOUDINARY_API_SECRET` | *(Optional)* |
+| `GEMINI_API_KEY` | *(Optional - add for AI resume/match features)* |
+
+### Frontend Environment Variables (Paste into Vercel)
+
+| Key | Value |
+| :--- | :--- |
+| `VITE_API_URL` | `https://<your-render-service>.onrender.com/api` *(must end with `/api`)* |
+| `VITE_SOCKET_URL` | `https://<your-render-service>.onrender.com` *(optional, for WebSockets)* |
+
+---
+
+## 📋 Step-by-Step Deployment Walkthrough
 
 ```
-[ Step 1: MongoDB Atlas ] ──> [ Step 2: Render API ] ──> [ Step 3: Vercel UI ] ──> [ Step 4: Link CORS ]
+[ Step 1: Deploy Backend to Render ] ──> [ Step 2: Deploy Frontend to Vercel ] ──> [ Step 3: Link CORS ]
 ```
 
 ---
 
-### Step 1: Database Setup (MongoDB Atlas)
+### Step 1: Backend API Deployment (Render)
 
-1. **Create Free Cluster**:
-   - Sign in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-   - Click **Create**, select the **M0 Free** tier, and choose your preferred region.
-
-2. **Add Database User**:
-   - Go to **Security** → **Database Access** → **Add New Database User**.
-   - Select **Password** authentication.
-   - Enter a username (e.g., `jobportal_admin`) and a secure password.
-   - Set privileges to **Read and write to any database**, then save.
-
-3. **Whitelist Network Access**:
-   - Go to **Security** → **Network Access** → **Add IP Address**.
-   - Select **Allow Access from Anywhere** (`0.0.0.0/0`).
-   - *Note: Render's free tier uses dynamic outgoing IPs, so 0.0.0.0/0 is required.*
-
-4. **Copy Connection String**:
-   - Go to **Database** → **Deployments** → **Connect** → **Drivers** (Node.js).
-   - Copy the SRV URI and replace `<username>` and `<password>`:
-     ```text
-     mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/jobportal?retryWrites=true&w=majority
-     ```
-
----
-
-### Step 2: Backend API Deployment (Render)
-
-1. **Create Service**:
-   - Sign in to [Render](https://render.com/) and click **New +** → **Web Service**.
-   - Connect your GitHub repository.
-
-2. **Configure Service**:
-   - **Name**: `job-portal-api`
+1. Sign in to [Render](https://render.com/).
+2. Click **New +** → **Web Service**.
+3. Select your repository: **`Jagriti-coder-786/job-portal`**.
+4. Configure service settings:
+   - **Name**: `job-portal-api` (or your preferred name)
+   - **Region**: Closest to you (e.g., Singapore, Frankfurt, or Oregon)
+   - **Branch**: `main`
    - **Root Directory**: `backend`
    - **Runtime**: `Node`
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
    - **Instance Type**: `Free`
-
-3. **Add Environment Variables**:
-   In the **Environment** section of the Render dashboard, add:
-
-   **Required to Boot:**
+5. Click **Advanced** and set:
+   - **Health Check Path**: `/health`
+6. Under **Environment Variables**, add the 6 required backend keys:
    ```env
    NODE_ENV=production
    PORT=5000
-   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/jobportal?retryWrites=true&w=majority
-   JWT_SECRET=super_secret_jwt_random_key_min_32_characters
-   JWT_REFRESH_SECRET=super_secret_refresh_key_min_32_characters
+   MONGODB_URI=mongodb+srv://jagritikushwaha95_db_user:SevPlzUngktllCi5@cluster0.ta7bgdu.mongodb.net/jobportal?appName=Cluster0
+   JWT_SECRET=71faafe736b12ceee9ad7f667209923f63db078385f0a8dfd2763818bb42d8a3
+   JWT_REFRESH_SECRET=6a54c0d74f0c9722e40bdb179bc057932a63e90416c003c03030267c1c5bd0d4
    FRONTEND_URL=https://temporary.vercel.app
    ```
-   *(You will update `FRONTEND_URL` in Step 4 once Vercel gives you your frontend URL).*
-
-   **Optional (Can add later):**
-   ```env
-   CLOUDINARY_CLOUD_NAME=your_cloud_name
-   CLOUDINARY_API_KEY=your_api_key
-   CLOUDINARY_API_SECRET=your_api_secret
-   GEMINI_API_KEY=your_gemini_key
+7. Click **Create Web Service**.
+8. Wait 1-2 minutes for the build and deployment logs to finish. Once you see:
    ```
-
-4. **Deploy**:
-   - Click **Create Web Service**.
-   - Once logs indicate `Server running on port 5000`, copy your backend URL (e.g., `https://job-portal-api.onrender.com`).
+   🚀 Server running in production mode on port 5000
+   ```
+   Copy your Render API service URL (e.g., `https://job-portal-api-xxxx.onrender.com`).
 
 ---
 
-### Step 3: Frontend UI Deployment (Vercel)
+### Step 2: Frontend UI Deployment (Vercel)
 
-1. **Import Project**:
-   - Sign in to [Vercel](https://vercel.com/) and click **Add New...** → **Project**.
-   - Import your GitHub repository.
-
-2. **Configure Settings**:
+1. Sign in to [Vercel](https://vercel.com/).
+2. Click **Add New...** → **Project**.
+3. Import your repository: **`Jagriti-coder-786/job-portal`**.
+4. Configure project settings:
    - **Framework Preset**: `Vite`
-   - **Root Directory**: Click *Edit* and select `frontend`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-
-3. **Add Environment Variables**:
-   In the Vercel **Environment Variables** section, add:
-   - `VITE_API_URL` = `https://job-portal-api.onrender.com/api` *(Your Render URL + `/api`)*
-   - `VITE_SOCKET_URL` = `https://job-portal-api.onrender.com` *(Your Render URL, optional)*
-
-4. **Verify SPA Routing (`vercel.json`)**:
-   Ensure `frontend/vercel.json` exists in your code to prevent 404s when refreshing pages:
-   ```json
-   {
-     "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-   }
-   ```
-
-5. **Deploy**:
-   - Click **Deploy**.
-   - Once complete, copy your live frontend URL (e.g., `https://job-portal-frontend.vercel.app`).
+   - **Root Directory**: Click *Edit* and select **`frontend`**
+   - **Build Command**: `npm run build` *(auto-detected)*
+   - **Output Directory**: `dist` *(auto-detected)*
+5. Open the **Environment Variables** section and add:
+   - **`VITE_API_URL`**: `https://<your-render-service>.onrender.com/api`
+     *(Replace `<your-render-service>` with the actual URL from Step 1; remember the `/api` suffix)*
+   - **`VITE_SOCKET_URL`**: `https://<your-render-service>.onrender.com`
+6. Click **Deploy**.
+7. Vercel will build the frontend in ~30 seconds. Once complete, copy your live frontend URL (e.g., `https://job-portal-frontend-xxxx.vercel.app`).
 
 ---
 
-### Step 4: Link Frontend & Backend (CORS Handshake)
+### Step 3: Link CORS (Frontend ↔ Backend Handshake)
 
-To allow the frontend to communicate with the backend securely:
+To allow your frontend on Vercel to securely communicate with your backend on Render:
 
-1. Open your backend service on **Render Dashboard**.
-2. Go to **Environment** tab.
-3. Update `FRONTEND_URL` with your actual Vercel URL (do **not** include a trailing slash):
-   ```env
-   FRONTEND_URL=https://job-portal-frontend.vercel.app
-   ```
-4. Click **Save Changes**. Render will automatically redeploy with the updated CORS rule.
-
----
-
-### Step 5: Seed Demo Data (Optional)
-
-To populate your live database with sample companies, job listings, and test accounts:
-
-- **Via Render Shell**:
-  1. Open your backend service in Render.
-  2. Click the **Shell** tab on the left menu.
-  3. Run `npm run seed`.
-
-**Pre-seeded Demo Logins:**
-- **Admin**: `admin@demo.com` / `Admin@123`
-- **Recruiter**: `recruiter@demo.com` / `Demo@123`
-- **Job Seeker**: `seeker@demo.com` / `Demo@123`
+1. Open your backend service on the [Render Dashboard](https://dashboard.render.com/).
+2. Click the **Environment** tab on the left menu.
+3. Edit the **`FRONTEND_URL`** variable:
+   - Change `https://temporary.vercel.app` to your live Vercel URL from Step 2:
+     ```env
+     FRONTEND_URL=https://job-portal-frontend-xxxx.vercel.app
+     ```
+   - ⚠️ **Important**: Do **not** include a trailing slash at the end (`/`).
+4. Click **Save Changes**. Render will automatically redeploy with the updated CORS policy in ~30 seconds.
 
 ---
 
-### Step 6: Media Storage Setup (Cloudinary) — *Add Later*
+### Step 4: Verify Your Live Application
 
-When you are ready to enable user resume PDF uploads and profile picture changes:
+Open your Vercel URL in your browser and log in with any of the pre-seeded demo accounts:
 
-1. Sign up at [Cloudinary](https://cloudinary.com/).
-2. Copy **Cloud Name**, **API Key**, and **API Secret** from your dashboard.
-3. Add `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` to your Render environment variables.
-4. Render will redeploy and uploads will become active immediately.
-
----
-
-## Environment Variables Summary
-
-### Backend (Set in Render Dashboard)
-| Variable | Status | Purpose |
+| Role | Email | Password |
 | :--- | :--- | :--- |
-| `NODE_ENV` | Required | Set to `production` |
-| `PORT` | Required | Set to `5000` |
-| `MONGODB_URI` | Required | MongoDB Atlas connection string |
-| `JWT_SECRET` | Required | Secret for signing auth tokens (32+ chars) |
-| `JWT_REFRESH_SECRET` | Required | Secret for refresh tokens (32+ chars) |
-| `FRONTEND_URL` | Required | Vercel frontend URL for CORS (no trailing `/`) |
-| `CLOUDINARY_*` | Optional / Later | For avatar and resume PDF uploads |
-| `GEMINI_API_KEY` | Optional / Later | For AI-assisted features |
+| **Admin** | `admin@demo.com` | `Admin@123` |
+| **Recruiter** | `recruiter@demo.com` | `Demo@123` |
+| **Job Seeker** | `seeker@demo.com` | `Demo@123` |
 
-### Frontend (Set in Vercel Dashboard)
-| Variable | Status | Purpose |
-| :--- | :--- | :--- |
-| `VITE_API_URL` | Required | Backend API endpoint (must end in `/api`) |
-| `VITE_SOCKET_URL` | Optional | Backend URL for real-time WebSocket connection |
+*(If you ever need to re-seed or reset demo data on MongoDB Atlas, run `npm run seed` in your backend directory or from the Render Shell tab).*
 
 ---
 
-## Troubleshooting
+### Step 5: Optional Media Uploads (Cloudinary)
 
-- **First request takes 30-50 seconds**: Render's free tier spins down after 15 minutes of inactivity. The initial wake-up delay is normal.
-- **CORS error in browser console**: Verify `FRONTEND_URL` in Render matches your Vercel URL exactly with **no trailing slash** (`https://myapp.vercel.app`).
-- **404 error when refreshing pages on Vercel**: Ensure `frontend/vercel.json` exists in your repository with rewrite rules to `/index.html`.
-- **Database connection failed**: Check that `0.0.0.0/0` is allowed under MongoDB Atlas Network Access.
+To enable profile avatar photos and PDF resume uploads:
+
+1. Create a free account at [Cloudinary](https://cloudinary.com/).
+2. Copy your **Cloud Name**, **API Key**, and **API Secret** from the dashboard.
+3. In your Render Dashboard → **Environment**, add:
+   - `CLOUDINARY_CLOUD_NAME=your_cloud_name`
+   - `CLOUDINARY_API_KEY=your_api_key`
+   - `CLOUDINARY_API_SECRET=your_api_secret`
+4. Click **Save Changes**. File upload features will immediately activate.
+
+---
+
+## 🛠️ Troubleshooting & Tips
+
+- **Initial request takes 30-50 seconds**: Render's free tier spins down web services after 15 minutes of inactivity. When someone visits the site after a pause, the first request wakes up the server. Subsequent requests are fast.
+- **CORS Error**: Check browser DevTools console. Ensure `FRONTEND_URL` on Render matches your Vercel domain without trailing `/`.
+- **Page refresh returns 404**: Single Page Applications require rewrite rules. `frontend/vercel.json` is already present in your repository to handle routing automatically.
+- **Database IP whitelist**: Ensure `0.0.0.0/0` (Allow access from anywhere) is configured in your MongoDB Atlas **Network Access** tab since Render free instances use dynamic IPs.
