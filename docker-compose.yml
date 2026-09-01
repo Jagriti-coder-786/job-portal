@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:6
+    container_name: job_portal_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  # Backend Node.js Service
+  backend:
+    build: 
+      context: ./backend
+    container_name: job_portal_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=8000
+      - MONGO_URI=mongodb://admin:password@mongodb:27017/jobportal?authSource=admin
+      - JWT_SECRET=your_jwt_secret_change_in_production
+      - NODE_ENV=production
+      # Include other necessary env vars below (e.g. Cloudinary, Gemini)
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: always
+
+  # Frontend React SPA Service (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: job_portal_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  mongodb_data:
