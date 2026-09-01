@@ -138,8 +138,8 @@ export default function JobDetailPage() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
       <Navbar />
       
-      <main className="flex-1 pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 pt-20 sm:pt-24 pb-36 sm:pb-20">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           
           <Breadcrumbs items={[
             { label: 'Jobs', href: '/jobs' },
@@ -147,65 +147,65 @@ export default function JobDetailPage() {
             { label: job.title }
           ]} />
 
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             
             {/* Left Column: Details */}
             <div className="lg:w-2/3 space-y-6">
               
               {/* Header Card */}
-              <Card className="p-6 md:p-8 relative overflow-hidden">
+              <Card className="p-4 sm:p-6 md:p-8 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-500 to-accent-500"></div>
                 
-                <div className="flex flex-col sm:flex-row gap-6 mb-6">
-                  <div className="w-20 h-20 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 shadow-sm">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6">
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 shadow-sm">
                     {job.company?.logo ? (
-                      <img src={job.company.logo} alt="" className="w-16 h-16 rounded-xl object-cover" />
+                      <img src={job.company.logo} alt="" className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl object-cover" />
                     ) : (
-                      <Building2 className="w-10 h-10 text-slate-400" />
+                      <Building2 className="w-7 h-7 sm:w-10 sm:h-10 text-slate-400" />
                     )}
                   </div>
                   <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">{job.title}</h1>
-                    <Link to={`/companies/${job.company?._id}`} className="text-lg text-primary-600 dark:text-primary-400 font-medium hover:underline flex items-center gap-2">
-                      {job.company?.name} <ArrowRight className="w-4 h-4" />
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-1.5">{job.title}</h1>
+                    <Link to={`/companies/${job.company?._id}`} className="text-sm sm:text-lg text-primary-600 dark:text-primary-400 font-medium hover:underline inline-flex items-center gap-1.5">
+                      {job.company?.name} <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <Badge variant="primary" className="text-sm px-3 py-1"><Briefcase className="w-4 h-4 mr-1.5" /> {job.jobType}</Badge>
-                  <Badge variant="default" className="text-sm px-3 py-1"><MapPin className="w-4 h-4 mr-1.5" /> {job.workMode}</Badge>
-                  <Badge variant="default" className="text-sm px-3 py-1">{job.experienceLevel}</Badge>
+                <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
+                  <Badge variant="primary" className="text-xs sm:text-sm px-2.5 sm:px-3 py-1"><Briefcase className="w-3.5 h-3.5 mr-1" /> {job.jobType}</Badge>
+                  <Badge variant="default" className="text-xs sm:text-sm px-2.5 sm:px-3 py-1"><MapPin className="w-3.5 h-3.5 mr-1" /> {job.workMode}</Badge>
+                  <Badge variant="default" className="text-xs sm:text-sm px-2.5 sm:px-3 py-1">{job.experienceLevel}</Badge>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-t border-b border-slate-100 dark:border-slate-800 mb-6">
-                  <div>
-                    <p className="text-sm text-slate-500 mb-1">Salary Range</p>
-                    <p className="font-semibold text-slate-900 dark:text-white">{formatSalary(job.salary)}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 py-4 sm:py-6 border-t border-b border-slate-100 dark:border-slate-800 mb-6">
+                  <div className="p-2 bg-slate-50/70 dark:bg-slate-800/40 rounded-xl sm:bg-transparent sm:p-0">
+                    <p className="text-xs sm:text-sm text-slate-500 mb-0.5">Salary Range</p>
+                    <p className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">{formatSalary(job.salary)}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-slate-500 mb-1">Location</p>
-                    <p className="font-semibold text-slate-900 dark:text-white">{job.location}</p>
+                  <div className="p-2 bg-slate-50/70 dark:bg-slate-800/40 rounded-xl sm:bg-transparent sm:p-0">
+                    <p className="text-xs sm:text-sm text-slate-500 mb-0.5">Location</p>
+                    <p className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white truncate">{job.location}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-slate-500 mb-1">Posted</p>
-                    <p className="font-semibold text-slate-900 dark:text-white">{formatRelativeDate(job.createdAt)}</p>
+                  <div className="p-2 bg-slate-50/70 dark:bg-slate-800/40 rounded-xl sm:bg-transparent sm:p-0">
+                    <p className="text-xs sm:text-sm text-slate-500 mb-0.5">Posted</p>
+                    <p className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white">{formatRelativeDate(job.createdAt)}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-slate-500 mb-1">Applicants</p>
-                    <p className="font-semibold text-slate-900 dark:text-white">{job.applicationsCount || 0} applied</p>
+                  <div className="p-2 bg-slate-50/70 dark:bg-slate-800/40 rounded-xl sm:bg-transparent sm:p-0">
+                    <p className="text-xs sm:text-sm text-slate-500 mb-0.5">Applicants</p>
+                    <p className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white">{job.applicationsCount || 0} applied</p>
                   </div>
                 </div>
 
-                {/* Desktop Actions */}
-                <div className="hidden sm:flex items-center gap-4">
+                {/* Actions (Desktop & Tablet) */}
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   {isSeeker || !isAuthenticated ? (
                     <>
                       <Button 
                         size="lg" 
                         onClick={() => isAuthenticated ? setShowApplyModal(true) : navigate('/login')}
                         disabled={hasApplied}
-                        className={hasApplied ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
+                        className={`flex-1 sm:flex-initial min-h-[44px] ${hasApplied ? 'bg-emerald-500 hover:bg-emerald-600' : ''}`}
                       >
                         {hasApplied ? (
                           <><CheckCircle2 className="w-5 h-5 mr-1" /> Applied</>
@@ -216,17 +216,31 @@ export default function JobDetailPage() {
                         variant="secondary" 
                         onClick={handleSaveJob} 
                         loading={savingJob}
+                        className="min-h-[44px]"
                       >
                         {isSaved ? 'Saved' : 'Save Job'}
                       </Button>
                     </>
                   ) : null}
                   <div className="flex items-center ml-auto gap-2">
-                    <Button size="lg" variant="ghost" aria-label="Share">
+                    <Button 
+                      size="lg" 
+                      variant="ghost" 
+                      aria-label="Share" 
+                      className="min-h-[44px] min-w-[44px]"
+                      onClick={() => {
+                        if (navigator.share) {
+                          navigator.share({ title: job.title, url: window.location.href });
+                        } else {
+                          navigator.clipboard.writeText(window.location.href);
+                          success('Link copied to clipboard!');
+                        }
+                      }}
+                    >
                       <Share2 className="w-5 h-5 text-slate-500" />
                     </Button>
                     {isAuthenticated && isSeeker && (
-                      <Button size="lg" variant="ghost" className="text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20" aria-label="Report" onClick={() => setShowReportModal(true)}>
+                      <Button size="lg" variant="ghost" className="text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 min-h-[44px] min-w-[44px]" aria-label="Report" onClick={() => setShowReportModal(true)}>
                         <Flag className="w-5 h-5" />
                       </Button>
                     )}
@@ -235,8 +249,8 @@ export default function JobDetailPage() {
               </Card>
 
               {/* Description */}
-              <Card className="p-6 md:p-8">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Job Description</h2>
+              <Card className="p-4 sm:p-6 md:p-8">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">Job Description</h2>
                 <div className="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
                   {job.description}
                 </div>
@@ -364,28 +378,42 @@ export default function JobDetailPage() {
       </main>
 
       {/* Mobile Sticky Action Bar */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-40">
-        <div className="flex gap-3 max-w-7xl mx-auto">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] z-50 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+        <div className="flex items-center gap-2 max-w-md mx-auto">
           {isSeeker || !isAuthenticated ? (
             <>
-              <Button 
-                variant="secondary" 
-                className="w-12 h-12 p-0 flex-shrink-0"
+              <button 
+                className="w-12 h-12 p-0 flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 transition-colors flex-shrink-0 active:scale-95"
                 onClick={handleSaveJob}
+                aria-label={isSaved ? "Unsave job" : "Save job"}
               >
-                {isSaved ? <BookmarkCheck className="w-5 h-5 text-primary-600" /> : <Bookmark className="w-5 h-5" />}
-              </Button>
+                {isSaved ? <BookmarkCheck className="w-5 h-5 text-primary-600 dark:text-primary-400" /> : <Bookmark className="w-5 h-5" />}
+              </button>
+              <button
+                className="w-12 h-12 p-0 flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 transition-colors flex-shrink-0 active:scale-95"
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({ title: job.title, url: window.location.href });
+                  } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    success('Link copied!');
+                  }
+                }}
+                aria-label="Share job"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
               <Button 
-                className={`flex-1 h-12 ${hasApplied ? 'bg-emerald-500' : ''}`}
+                className={`flex-1 h-12 rounded-xl text-base font-semibold shadow-md active:scale-98 ${hasApplied ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'btn-primary'}`}
                 onClick={() => isAuthenticated ? setShowApplyModal(true) : navigate('/login')}
                 disabled={hasApplied}
               >
-                {hasApplied ? 'Applied' : 'Apply Now'}
+                {hasApplied ? <><CheckCircle2 className="w-5 h-5 mr-1.5 inline" /> Applied</> : 'Apply Now'}
               </Button>
             </>
           ) : (
-            <div className="text-center w-full text-sm text-slate-500 py-2">
-              Recruiters cannot apply for jobs.
+            <div className="text-center w-full text-xs text-slate-500 py-1">
+              Logged in as recruiter
             </div>
           )}
         </div>

@@ -201,21 +201,21 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-white/90 text-sm mb-8 animate-fade-in">
-            <Sparkles className="w-4 h-4 text-amber-400" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-white/90 text-xs sm:text-sm mb-6 sm:mb-8 animate-fade-in">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             AI-Powered Job Matching — Find your perfect role
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] mb-5 animate-fade-in-up">
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.12] mb-4 sm:mb-5 animate-fade-in-up">
             Find Your Dream<br />
-            <span className="my-2 block min-h-[1.2em]">
+            <span className="my-1.5 sm:my-2 block min-h-[1.2em]">
               <Typewriter words={['React Developer', 'Data Scientist', 'UI/UX Designer', 'DevOps Engineer', 'Product Manager', 'ML Engineer']} />
             </span>
-            <span className="text-white/90 text-4xl sm:text-5xl lg:text-6xl">Role Today</span>
+            <span className="text-white/90 text-2xl sm:text-4xl lg:text-6xl">Role Today</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-10 animate-fade-in-up animation-delay-200 leading-relaxed">
+          <p className="text-base sm:text-xl text-white/70 max-w-2xl mx-auto mb-8 sm:mb-10 animate-fade-in-up animation-delay-200 leading-relaxed px-2">
             Connect with thousands of top companies. AI matches you to opportunities that fit your skills, experience, and goals.
           </p>
 
@@ -224,7 +224,7 @@ export default function HomePage() {
             <div className="glass-card rounded-2xl p-2 sm:p-3">
               <div className="flex flex-col sm:flex-row gap-2">
                 <label htmlFor="hero-search" className="sr-only">Job title, skills, or company</label>
-                <div className="flex-1 flex items-center gap-2 px-4 py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors">
+                <div className="flex-1 flex items-center gap-2 px-3.5 py-2.5 sm:py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors min-h-[44px]">
                   <Search className="w-5 h-5 text-white/50 flex-shrink-0" aria-hidden="true" />
                   <input
                     id="hero-search"
@@ -232,11 +232,11 @@ export default function HomePage() {
                     placeholder="Job title, skills, or company..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full text-white placeholder-white/40 focus:outline-none bg-transparent text-sm"
+                    className="w-full text-white placeholder-white/40 focus:outline-none bg-transparent text-base sm:text-sm"
                   />
                 </div>
                 <label htmlFor="hero-location" className="sr-only">Location</label>
-                <div className="flex-1 flex items-center gap-2 px-4 py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors">
+                <div className="flex-1 flex items-center gap-2 px-3.5 py-2.5 sm:py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors min-h-[44px]">
                   <MapPin className="w-5 h-5 text-white/50 flex-shrink-0" aria-hidden="true" />
                   <input
                     id="hero-location"
@@ -244,17 +244,17 @@ export default function HomePage() {
                     placeholder="City, state, or remote..."
                     value={searchLocation}
                     onChange={e => setSearchLocation(e.target.value)}
-                    className="w-full text-white placeholder-white/40 focus:outline-none bg-transparent text-sm"
+                    className="w-full text-white placeholder-white/40 focus:outline-none bg-transparent text-base sm:text-sm"
                   />
                 </div>
                 <label htmlFor="hero-workmode" className="sr-only">Work mode</label>
-                <div className="sm:w-36 flex items-center gap-2 px-4 py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors">
+                <div className="sm:w-36 flex items-center gap-2 px-3.5 py-2.5 sm:py-3 bg-white/10 rounded-xl border border-white/10 hover:border-white/25 transition-colors min-h-[44px]">
                   <Filter className="w-4 h-4 text-white/50 flex-shrink-0" aria-hidden="true" />
                   <select
                     id="hero-workmode"
                     value={workMode}
                     onChange={e => setWorkMode(e.target.value)}
-                    className="w-full text-white bg-transparent focus:outline-none text-sm cursor-pointer"
+                    className="w-full text-white bg-transparent focus:outline-none text-base sm:text-sm cursor-pointer"
                   >
                     <option value="" className="text-slate-900">Any Mode</option>
                     <option value="remote" className="text-slate-900">Remote</option>
@@ -264,7 +264,7 @@ export default function HomePage() {
                 </div>
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-gradient-to-r from-primary-500 to-violet-600 hover:from-primary-400 hover:to-violet-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 hover:scale-[1.02] flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="w-full sm:w-auto px-6 py-3 min-h-[44px] bg-gradient-to-r from-primary-500 to-violet-600 hover:from-primary-400 hover:to-violet-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap text-sm"
                 >
                   <Search className="w-4 h-4" /> Search Jobs
                 </button>
@@ -273,13 +273,13 @@ export default function HomePage() {
           </form>
 
           {/* Popular tags */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-5 animate-fade-in animation-delay-400">
-            <span className="text-white/50 text-sm">Popular:</span>
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-5 animate-fade-in animation-delay-400">
+            <span className="text-white/50 text-xs sm:text-sm">Popular:</span>
             {['React', 'Python', 'Remote', 'Node.js', 'Data Science', 'UI/UX'].map(tag => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="px-3 py-1 glass-card text-white/80 text-xs rounded-full hover:bg-white/20 transition-colors"
+                className="px-2.5 py-1 glass-card text-white/80 text-xs rounded-full hover:bg-white/20 transition-colors"
               >
                 {tag}
               </button>
@@ -287,11 +287,11 @@ export default function HomePage() {
           </div>
 
           {/* Quick stats */}
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 mt-14 animate-fade-in animation-delay-600">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-4 sm:gap-14 mt-8 sm:mt-14 animate-fade-in animation-delay-600">
             {[{v:'10K+',l:'Active Jobs'},{v:'5K+',l:'Companies'},{v:'50K+',l:'Job Seekers'},{v:'95%',l:'Success Rate'}].map((s,i) => (
-              <div key={i} className="text-center">
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">{s.v}</p>
-                <p className="text-xs sm:text-sm text-white/60 mt-0.5">{s.l}</p>
+              <div key={i} className="text-center p-2">
+                <p className="text-xl sm:text-3xl font-extrabold text-white">{s.v}</p>
+                <p className="text-xs text-white/60 mt-0.5">{s.l}</p>
               </div>
             ))}
           </div>
@@ -305,34 +305,34 @@ export default function HomePage() {
       </section>
 
       {/* ═══ CATEGORIES ═══ */}
-      <section className="py-20 sm:py-24 bg-white dark:bg-slate-950" aria-labelledby="categories-heading">
+      <section className="py-14 sm:py-24 bg-white dark:bg-slate-950" aria-labelledby="categories-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-xs font-semibold mb-4">
+          <div className="text-center mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-xs font-semibold mb-3 sm:mb-4">
               <Briefcase className="w-3.5 h-3.5" /> BROWSE BY CATEGORY
             </div>
             <h2 id="categories-heading" className="section-heading">Popular Job Categories</h2>
             <p className="section-subheading mx-auto">Explore opportunities across industries where talent meets opportunity.</p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {categories.map(cat => (
               <Link
                 key={cat.name}
                 to={`/jobs?category=${encodeURIComponent(cat.value || cat.name)}`}
-                className="group flex flex-col items-center gap-3 p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary-400 dark:hover:border-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
+                className="group flex flex-col items-center gap-2.5 sm:gap-3 p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary-400 dark:hover:border-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center"
               >
-                <div className={`w-14 h-14 rounded-2xl ${cat.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                  <cat.icon className="w-7 h-7 text-white" />
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${cat.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                  <cat.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-900 dark:text-white text-sm">{cat.name}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">{cat.count} open roles</p>
+                  <p className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm truncate max-w-[140px]">{cat.name}</p>
+                  <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">{cat.count} open roles</p>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <Link to="/jobs" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:gap-3 transition-all">
+          <div className="text-center mt-8 sm:mt-10">
+            <Link to="/jobs" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:gap-3 transition-all text-sm sm:text-base">
               View all categories <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -340,15 +340,15 @@ export default function HomePage() {
       </section>
 
       {/* ═══ FEATURED JOBS ═══ */}
-      <section className="py-20 sm:py-24 bg-slate-50 dark:bg-slate-900/50" aria-labelledby="jobs-heading">
+      <section className="py-14 sm:py-24 bg-slate-50 dark:bg-slate-900/50" aria-labelledby="jobs-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 sm:mb-12 gap-3 sm:gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-semibold mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-semibold mb-2 sm:mb-3">
                 <Zap className="w-3.5 h-3.5" /> LIVE OPPORTUNITIES
               </div>
               <h2 id="jobs-heading" className="section-heading">Featured Jobs</h2>
-              <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">Latest from top companies, updated in real time.</p>
+              <p className="text-slate-500 dark:text-slate-400 mt-1 text-xs sm:text-sm">Latest from top companies, updated in real time.</p>
             </div>
             <Link
               to="/jobs"
@@ -357,7 +357,7 @@ export default function HomePage() {
               View All Jobs <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {loading
               ? Array(6).fill(0).map((_, i) => <JobCardSkeleton key={i} />)
               : featuredJobs.length > 0

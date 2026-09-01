@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { Upload, X, Plus, FileText, User, Link as LinkIcon, Wand2 } from 'lucide-react';
+import { Upload, X, Plus, FileText, User, Link as LinkIcon, Wand2, Camera } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useToast } from '../../hooks/useToast';
 import { userService } from '../../services/userService';
@@ -203,17 +203,25 @@ export default function SeekerProfile() {
         
         {/* Left Column: Media */}
         <div className="space-y-6">
-          <Card className="p-6 flex flex-col items-center text-center">
-            <div className="relative mb-4 group cursor-pointer">
-              <div className="w-32 h-32 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-4 border-white dark:border-slate-900 shadow-lg">
+          <Card className="p-5 sm:p-6 flex flex-col items-center text-center">
+            <div className="relative mb-4">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-4 border-white dark:border-slate-900 shadow-lg relative">
                 {user?.avatar ? (
                   <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-16 h-16 text-slate-300 mx-auto mt-8" />
+                  <User className="w-14 h-14 sm:w-16 sm:h-16 text-slate-300 mx-auto mt-6 sm:mt-8" />
+                )}
+                {uploadingAvatar && (
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                    <LoadingSpinner size="sm" />
+                  </div>
                 )}
               </div>
-              <label className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 rounded-full transition-opacity cursor-pointer">
-                <Upload className="w-6 h-6" />
+              <label 
+                className="absolute bottom-0 right-0 p-2.5 bg-primary-600 hover:bg-primary-700 active:scale-95 text-white rounded-full shadow-md cursor-pointer transition-transform z-10 min-h-[40px] min-w-[40px] flex items-center justify-center"
+                title="Change photo"
+              >
+                <Camera className="w-4 h-4" />
                 <input type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} disabled={uploadingAvatar} />
               </label>
             </div>

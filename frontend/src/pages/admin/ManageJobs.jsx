@@ -87,20 +87,62 @@ export default function ManageJobs() {
       <Card className="p-0 overflow-hidden">
         {loading ? (
           <div className="p-12 flex justify-center"><LoadingSpinner size="lg" /></div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Job Details</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Company</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Status</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {jobs.length > 0 ? (
-                  jobs.map((job) => (
+        ) : jobs.length > 0 ? (
+          <>
+            {/* Mobile Cards View */}
+            <div className="md:hidden divide-y divide-slate-100 dark:divide-slate-800">
+              {jobs.map((job) => (
+                <div key={job._id} className="p-4 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <Link to={`/jobs/${job._id}`} className="font-semibold text-slate-900 dark:text-white text-sm hover:text-primary-600 block truncate">
+                        {job.title}
+                      </Link>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{job.company?.name || 'Unknown Company'}</p>
+                    </div>
+                    <Badge variant={job.status === 'open' ? 'success' : 'default'} className="text-[10px] uppercase font-bold">
+                      {job.status}
+                    </Badge>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                    <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">{job.jobType}</span>
+                    <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">{job.location}</span>
+                    <span className="text-slate-400">Posted {formatDate(job.createdAt)}</span>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-1">
+                    <Link to={`/jobs/${job._id}`}>
+                      <Button variant="outline" size="sm" className="text-xs min-h-[36px] px-3 flex items-center gap-1">
+                        <Eye className="w-3.5 h-3.5" /> View
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 min-h-[36px] px-3 flex items-center gap-1"
+                      onClick={() => confirmDelete(job)}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" /> Delete
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Job Details</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Company</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Status</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobs.map((job) => (
                     <tr key={job._id} className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/20">
                       <td className="p-4">
                         <div className="flex flex-col gap-1">
@@ -143,16 +185,14 @@ export default function ManageJobs() {
                         </div>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4" className="p-12 text-center text-slate-500">
-                      No jobs found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : (
+          <div className="p-12 text-center text-slate-500">
+            No jobs found.
           </div>
         )}
       </Card>

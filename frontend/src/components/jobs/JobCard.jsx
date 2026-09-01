@@ -35,13 +35,13 @@ export default function JobCard({ job, isSaved: initialIsSaved = false, onSaveTo
 
   return (
     <Link to={`/jobs/${job._id}`} className="group block h-full">
-      <Card hover className="p-6 h-full flex flex-col relative">
+      <Card hover className="p-4 sm:p-6 h-full flex flex-col relative">
         {/* Save Button */}
         {isAuthenticated && isSeeker && (
           <button
             onClick={handleSave}
             disabled={loading}
-            className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10 min-w-[40px] min-h-[40px] flex items-center justify-center"
             aria-label={isSaved ? "Unsave job" : "Save job"}
           >
             {isSaved ? (
@@ -52,34 +52,34 @@ export default function JobCard({ job, isSaved: initialIsSaved = false, onSaveTo
           </button>
         )}
 
-        <div className="flex items-start gap-4 mb-4 pr-8">
-          <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+        <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4 pr-10">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
             {job.company?.logo ? (
-              <img src={job.company.logo} alt="" className="w-10 h-10 rounded-lg object-cover" />
+              <img src={job.company.logo} alt="" className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg object-cover" />
             ) : (
-              <Building2 className="w-6 h-6 text-slate-400" />
+              <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400" />
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-lg text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
+            <h3 className="font-semibold text-base sm:text-lg text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
               {job.title}
             </h3>
-            <Link to={`/companies/${job.company?._id}`} className="text-sm text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 truncate block">
+            <Link to={`/companies/${job.company?._id}`} className="text-xs sm:text-sm text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 truncate block mt-0.5">
               {job.company?.name}
             </Link>
           </div>
-          {job.matchScore !== undefined && (
-            <div className="absolute top-4 right-16 px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 text-xs font-bold rounded-lg border border-indigo-100 dark:border-indigo-800 flex items-center gap-1 shadow-sm">
-              <Target className="w-3.5 h-3.5" />
-              {job.matchScore}% Match
-            </div>
-          )}
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          <Badge variant="primary">{job.jobType}</Badge>
-          <Badge variant="default">{job.workMode}</Badge>
-          <Badge variant="default">{job.experienceLevel}</Badge>
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+          <Badge variant="primary" className="text-xs">{job.jobType}</Badge>
+          <Badge variant="default" className="text-xs">{job.workMode}</Badge>
+          <Badge variant="default" className="text-xs">{job.experienceLevel}</Badge>
+          {job.matchScore !== undefined && (
+            <span className="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-md border border-indigo-100 dark:border-indigo-800/60 flex items-center gap-1">
+              <Target className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+              {job.matchScore}% Match
+            </span>
+          )}
         </div>
 
         <div className="flex-1">

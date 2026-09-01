@@ -167,7 +167,7 @@ export default function KanbanBoard({ initialApplications, jobId, onStatusChange
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+      <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 px-1 custom-scrollbar snap-x snap-mandatory scroll-smooth">
         {COLUMNS.map(col => (
           <KanbanColumn 
             key={col.id} 

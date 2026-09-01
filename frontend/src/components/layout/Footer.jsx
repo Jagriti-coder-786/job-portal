@@ -3,11 +3,11 @@ import { Briefcase } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-300 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-300 border-t border-slate-800 pb-20 md:pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-1 space-y-3">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center">
                 <Briefcase className="w-4 h-4 text-white" />
@@ -16,16 +16,15 @@ export default function Footer() {
                 Job<span className="text-primary-400">Portal</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
               Your gateway to amazing career opportunities. Connect with top companies and find your dream job.
             </p>
-
           </div>
 
           {/* For Job Seekers */}
           <div>
-            <h4 className="text-white font-semibold mb-4">For Job Seekers</h4>
-            <ul className="space-y-2.5">
+            <h4 className="text-white text-sm font-semibold mb-3">For Seekers</h4>
+            <ul className="space-y-2">
               <FooterLink to="/jobs">Browse Jobs</FooterLink>
               <FooterLink to="/companies">Companies</FooterLink>
               <FooterLink to="/register">Create Account</FooterLink>
@@ -35,19 +34,19 @@ export default function Footer() {
 
           {/* For Recruiters */}
           <div>
-            <h4 className="text-white font-semibold mb-4">For Recruiters</h4>
-            <ul className="space-y-2.5">
+            <h4 className="text-white text-sm font-semibold mb-3">For Recruiters</h4>
+            <ul className="space-y-2">
               <FooterLink to="/register">Post a Job</FooterLink>
-              <FooterLink to="/recruiter/dashboard">Recruiter Dashboard</FooterLink>
-              <FooterLink to="/recruiter/company">Company Profile</FooterLink>
+              <FooterLink to="/recruiter/dashboard">Dashboard</FooterLink>
+              <FooterLink to="/recruiter/company">Profile</FooterLink>
               <FooterLink to="/recruiter/analytics">Analytics</FooterLink>
             </ul>
           </div>
 
           {/* Support */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Support</h4>
-            <ul className="space-y-2.5">
+          <div className="col-span-2 sm:col-span-1">
+            <h4 className="text-white text-sm font-semibold mb-3">Support</h4>
+            <ul className="space-y-2">
               <FooterLink to="#">Help Center</FooterLink>
               <FooterLink to="#">Privacy Policy</FooterLink>
               <FooterLink to="#">Terms of Service</FooterLink>
@@ -56,7 +55,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} JobPortal. All rights reserved.
           </p>

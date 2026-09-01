@@ -6,6 +6,7 @@ import { SocketProvider } from './context/SocketContext';
 import AppRoutes from './routes/AppRoutes';
 import ToastContainer from './components/ui/Toast';
 import ScrollToTop from './components/layout/ScrollToTop';
+import MobileBottomNav from './components/layout/MobileBottomNav';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <SocketProvider>
             <ToastProvider>
               <AppRoutes />
+              <MobileBottomNav />
               <ToastContainer />
             </ToastProvider>
           </SocketProvider>

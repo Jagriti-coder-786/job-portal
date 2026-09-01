@@ -86,20 +86,55 @@ export default function ManageUsers() {
       <Card className="p-0 overflow-hidden">
         {loading ? (
           <div className="p-12 flex justify-center"><LoadingSpinner size="lg" /></div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">User</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Contact</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Joined</th>
-                  <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.length > 0 ? (
-                  users.map((user) => (
+        ) : users.length > 0 ? (
+          <>
+            {/* Mobile Cards View */}
+            <div className="md:hidden divide-y divide-slate-100 dark:divide-slate-800">
+              {users.map((user) => (
+                <div key={user._id} className="p-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+                      {user.avatar ? (
+                        <img src={user.avatar} alt="" className="w-full h-full object-cover rounded-full" />
+                      ) : (
+                        <span className="font-bold text-slate-500">{user.name?.charAt(0)}</span>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-slate-900 dark:text-white text-sm truncate">{user.name}</p>
+                        <Badge variant="info" className="text-[10px]">Seeker</Badge>
+                      </div>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{user.email}</p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">Joined {formatDate(user.createdAt)}</p>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 min-h-[40px] min-w-[40px] p-2"
+                    onClick={() => confirmDelete(user)}
+                    aria-label="Delete user"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">User</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Contact</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300">Joined</th>
+                    <th className="p-4 font-semibold text-sm text-slate-600 dark:text-slate-300 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
                     <tr key={user._id} className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/20">
                       <td className="p-4">
                         <div className="flex items-center gap-3">
@@ -135,16 +170,14 @@ export default function ManageUsers() {
                         </Button>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4" className="p-12 text-center text-slate-500">
-                      No users found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : (
+          <div className="p-12 text-center text-slate-500">
+            No users found.
           </div>
         )}
       </Card>
